@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  laravel-web:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./docker/nginx
+    ports:
+    - "8090:80"
+    volumes:
+    - ./:/code
+    - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  laravel_php:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./docker/php
+    volumes:
+    - ./:/code
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+      PHP_IDE_CONFIG: "serverName=laravel.local"
