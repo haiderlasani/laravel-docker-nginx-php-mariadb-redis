@@ -21,7 +21,7 @@ class UserTest extends TestCase
     /**  @test */
     public function it_registers_a_user_and_get_a_token()
     {
-        $response = $this->postJson('/api/register', [
+        $response = $this->postJson('/api/user/register', [
             'name' => 'Sally Hobs',
             'email' => 'name@example.com',
             'password' => 'secret',
