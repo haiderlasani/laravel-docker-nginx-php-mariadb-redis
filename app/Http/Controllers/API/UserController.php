@@ -12,11 +12,15 @@ class UserController extends Controller
 {
     public function login()
     {
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+        if (Auth::attempt([
+            'email' => request('email'),
+            'password' => request('password')
+        ])) {
             $user = Auth::user();
-            return response()->json(['success' => [
-                'token' => $user->createToken('MyApp')->accessToken
-            ]], 200);
+            return response()->json([
+                'token' => $user->createToken('MyApp')->accessToken,
+                'user' => $user
+            ], 200);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
@@ -37,10 +41,13 @@ class UserController extends Controller
 
         $user = User::create($request->all());
 
-        return response()->json(['success' => [
+        return response()->json([
             'token' => $user->createToken('MyApp')->accessToken,
-            'name' => $user->name
-        ]], 200);
+            'user' => [
+                'name' => $user->name,
+                'email' => $user->email,
+            ]
+        ], 200);
     }
 
     public function details()
