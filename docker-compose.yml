@@ -37,6 +37,20 @@ services:
     ports:
     - 3306:3306
 
+  laravel-test-mysql:
+    container_name: laravel-test-mysql
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+    - ./docker/mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+    ports:
+    - 3307:3306
+
   laravel-adminer:
     container_name: laravel-adminer
     image: adminer
