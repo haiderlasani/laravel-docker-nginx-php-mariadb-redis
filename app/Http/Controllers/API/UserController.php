@@ -42,7 +42,13 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $user = User::create($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->email,
+            'email' => $request->email,
+            'email_verified_at' => null,
+            'password' => $request->password
+        ]);
 
         return response()->json([
             'token' => $user->createToken('MyApp')->accessToken,
